@@ -20,7 +20,8 @@ class PULSE(torch.nn.Module):
         cache_dir = Path(cache_dir)
         cache_dir.mkdir(parents=True, exist_ok = True)
         if self.verbose: print("Loading Synthesis Network")
-        with open_url("https://drive.google.com/uc?id=1xRUcw3zRITbwyRvN_wXVPsUhGkU1HCvF", cache_dir=cache_dir, verbose=verbose) as f:
+        with open("/content/gdrive/My Drive/GAN/synthesis.pt","rb") as f:
+        #with open_url("https://drive.google.com/uc?id=1xRUcw3zRITbwyRvN_wXVPsUhGkU1HCvF", cache_dir=cache_dir, verbose=verbose) as f:
             self.synthesis.load_state_dict(torch.load(f))
 
         for param in self.synthesis.parameters():
@@ -34,8 +35,9 @@ class PULSE(torch.nn.Module):
             if self.verbose: print("\tLoading Mapping Network")
             mapping = G_mapping().cuda()
 
-            # these URLs are my personal gdrive
-            with open_url("https://drive.google.com/uc?id=1r_OzBT1wdxgu8N0ywjMOwWJ3ZGLSQm7H", cache_dir=cache_dir, verbose=verbose) as f:
+            # these URLs are my personal gdriv
+            with open("/content/gdrive/My Drive/GAN/mapping.pt","rb") as f:
+            #with open_url("https://drive.google.com/uc?id=1r_OzBT1wdxgu8N0ywjMOwWJ3ZGLSQm7H", cache_dir=cache_dir, verbose=verbose) as f:
                     mapping.load_state_dict(torch.load(f))
 
             if self.verbose: print("\tRunning Mapping Network")
